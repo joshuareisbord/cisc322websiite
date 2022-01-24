@@ -10,6 +10,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/header";
 
 import Home from './pages/home'
+
+
 import Footer from "./components/footer";
 
 
@@ -21,6 +23,7 @@ const App = () => {
     return (
         <QueryClientProvider client={reactQueryClient}>
             <div className={'flex flex-col min-h-screen'}>
+
 
                 {/* header */}
                 <div><Header/></div>
@@ -36,9 +39,6 @@ const App = () => {
                             <Route path={'/'} element={<Navigate to={`${ROUTES.HOME}`} />} />
 
                             <Route path={`${ROUTES.HOME}`} element={<Home />} />
-                            <Route path={`${ROUTES.ABOUT}`} element={<div>about</div>} />
-                            <Route path={`${ROUTES.TEAM}`} element={<div>team</div>} />
-                            <Route path={`${ROUTES.PROJECTS}`} element={<div>projects</div>} />
                         </Routes>
                     </BrowserRouter>
                 </div>
