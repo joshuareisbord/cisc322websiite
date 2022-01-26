@@ -9,6 +9,7 @@ const Header = () => {
                         <img className="h-10" src={PEPE} alt="" width="auto"/>
                     </a>
                     
+                    {/* <ul className="lg:flex items-center space-x-12 ml-auto mr-12"> */}
                     <ul className="lg:flex items-center space-x-12 ml-auto mr-12">
                         <li><a className="text-sm text-blueGray-400 hover:text-blueGray-500" href='#navbar'>Home</a></li>
                         <li><a className="text-sm text-blueGray-400 hover:text-blueGray-500" href='#about'>About</a></li>

@@ -1,29 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchAssignments } from '../api';
-import { Project } from '../types/Projects';
+import { Assignment } from '../types/Assignments';
 import generateRandomString from '../util/generateRandomString';
 
-const ProjectElement: React.FC<{ project: Project }> = ({ project }) => {
+const AssignmentElement: React.FC<{ assignment: Assignment }> = ({ assignment }) => {
     return (
         <div className="w-full md:w-1/2 lg:w-1/3 px-3 mb-6">
             <div className="p-8 bg-white shadow rounded">
                 <div className="flex items-center mb-4">
-                    <img className="h-16 w-16 rounded-full object-cover" src={project.img} alt="" />
+                    <img className="h-16 w-16 rounded-full object-cover" src={assignment.img} alt="" />
                     <div className="pl-4">
-                        <p className="text-xl">{project.title}</p>
-                        <p className='text-xs hover:underline'> <Link to={project.link}>Video Presentation</Link> </p>
+                        <p className="text-xl">{assignment.title}</p>
+                        <p className='text-xs hover:underline'> <Link to={assignment.link}>Video Presentation</Link> </p>
                     </div>
                 </div>
-                <p className="text-blueGray-400 leading-loose">{project.desc}</p>
+                <p className="text-blueGray-400 leading-loose">{assignment.desc}</p>
             </div>
         </div>
     );
 }
 
-export const Projects = () => {
+export const Assignments = () => {
 
-    const [projects, setProjects] = useState<null | Project[]>(null)
+    const [assignments, setAssignments] = useState<null | Assignment[]>(null)
 
     useEffect(() => {
 
@@ -34,7 +34,7 @@ export const Projects = () => {
                 return
             }
             console.log(response)
-            setProjects(response)
+            setAssignments(response)
         }
 
         getAssignments()
@@ -53,13 +53,13 @@ export const Projects = () => {
                 <div className="flex flex-wrap -mx-3 mb-6">
 
                     {
-                        projects ?
+                        assignments ?
 
-                            projects.map((proj) => {
+                        assignments.map((assn) => {
                                 return (
-                                    <ProjectElement
+                                    <AssignmentElement
                                         key={generateRandomString(5)}
-                                        project={proj}
+                                        assignment={assn}
                                     />
                                 );
                             })
@@ -77,4 +77,4 @@ export const Projects = () => {
 };
 
 
-export default Projects;
+export default Assignments;

@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
 
-import { transformProjects } from "../types/Projects";
+import { transformAssignments } from "../types/Assignments";
 
 export const fetchAssignments = async (id?: Number) => {
 
@@ -19,5 +19,5 @@ export const fetchAssignments = async (id?: Number) => {
     return
   }
 
-  return transformProjects(response);
+  return transformAssignments(response);
 };
