@@ -1,5 +1,6 @@
 import { TEAM_MEMBERS } from "../constants/team_members";
 
+import generateRandomString from '../util/generateRandomString'
 
 const MemberProfile: React.FC<{img: string, name: string}> = ({img, name}) => {
     return (
@@ -38,7 +39,7 @@ const Team: React.FC = () => {
                         {
                             TEAM_MEMBERS.map((member) => {
                                 return (
-                                    <MemberProfile img={member.img} name={member.name} />
+                                    <MemberProfile key={generateRandomString(5)} img={member.img} name={member.name} />
                                 );
                             })
                         }

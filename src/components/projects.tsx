@@ -1,51 +1,75 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { fetchAssignments } from '../api';
+import { Project } from '../types/Projects';
+import generateRandomString from '../util/generateRandomString';
 
-const tmp_proj = [
-
-    {title: 'Assignment 1', desc: 'This assignment wont be fun.', img: 'https://i.kym-cdn.com/photos/images/newsfeed/002/165/983/ba9.png'},
-    {title: 'Assignment 2', desc: 'This one wont be fun either.', img: 'https://i.kym-cdn.com/photos/images/newsfeed/002/165/969/b58.gif'},
-    {title: 'Assignment 3', desc: 'This one might be okay.', img: 'https://i.kym-cdn.com/photos/images/newsfeed/002/165/971/665.png'},
-    {title: 'Assignment 4', desc: 'I get the vibe this one will make me cry.', img: 'https://i.kym-cdn.com/photos/images/newsfeed/002/165/981/d83.jpg'},
-    {title: 'Assignment 5', desc: 'Have I mentioned I find pepe funny?', img: 'https://pbs.twimg.com/media/E4-0JLsXEAAafJp?format=jpg&name=large'},
-    {title: 'Assignment 6', desc: 'This is an assignment will be alright.', img: 'https://i.kym-cdn.com/photos/images/newsfeed/002/165/924/83a.gif'},
-
-
-];
-
-const Project: React.FC<{title: string, desc: string, img: string}> = ({title, desc, img}) => {
+const ProjectElement: React.FC<{ project: Project }> = ({ project }) => {
     return (
         <div className="w-full md:w-1/2 lg:w-1/3 px-3 mb-6">
             <div className="p-8 bg-white shadow rounded">
                 <div className="flex items-center mb-4">
-                    <img className="h-16 w-16 rounded-full object-cover" src={img} alt="" />
+                    <img className="h-16 w-16 rounded-full object-cover" src={project.img} alt="" />
                     <div className="pl-4">
-                        <p className="text-xl">{title}</p>
+                        <p className="text-xl">{project.title}</p>
+                        <p className='text-xs hover:underline'> <Link to={project.link}>Video Presentation</Link> </p>
                     </div>
                 </div>
-                <p className="text-blueGray-400 leading-loose">{desc}</p>
+                <p className="text-blueGray-400 leading-loose">{project.desc}</p>
             </div>
         </div>
     );
 }
 
 export const Projects = () => {
+
+    const [projects, setProjects] = useState<null | Project[]>(null)
+
+    useEffect(() => {
+
+        const getAssignments = async () => {
+
+            const response = await fetchAssignments()
+            if (!response) {
+                return
+            }
+            console.log(response)
+            setProjects(response)
+        }
+
+        getAssignments()
+
+
+    }, []);
+
     return (
         <section className="py-20 xl:bg-contain bg-top bg-no-repeat" id='projects'>
             <div className="container px-4 mx-auto">
                 <div className="max-w-lg mx-auto mb-12 text-center">
-                    <h2 className="my-2 text-3xl md:text-4xl font-bold font-heading">Lorem ipsum dolor sit amet consectutar domor</h2>
+                    <h2 className="my-2 text-3xl md:text-4xl font-bold font-heading">Projects</h2>
                     <p className="text-blueGray-400 leading-loose">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed luctus eget justo et iaculis.</p>
                 </div>
+
                 <div className="flex flex-wrap -mx-3 mb-6">
 
                     {
-                        tmp_proj.map((project) => {
-                            return (
-                                <Project title={project.title} desc={project.desc} img={project.img} />
-                            );
-                        })
+                        projects ?
+
+                            projects.map((proj) => {
+                                return (
+                                    <ProjectElement
+                                        key={generateRandomString(5)}
+                                        project={proj}
+                                    />
+                                );
+                            })
+
+                            :
+
+                            <h1>loading...</h1>
+                            
                     }
-                    
+
                 </div>
             </div>
         </section>
