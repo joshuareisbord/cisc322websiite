@@ -1,23 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
+import { fetchAssignments } from './get_assignments';
+import { fetchMembers } from './get_team';
 
-import { transformAssignments } from "../types/Assignments";
-
-export const fetchAssignments = async (id?: Number) => {
-
-  var config: AxiosRequestConfig = {
-    method: 'get',
-    url: 'https://cisc322-website.herokuapp.com/api/assignments',
-    params: {
-      populate: '*'
-    }
-  };
-
-  const response = await axios.request(config)
-
-  if (!response) {
-    console.error('response was null!')
-    return
-  }
-
-  return transformAssignments(response);
-};
+export { fetchAssignments, fetchMembers };

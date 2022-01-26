@@ -1,17 +1,37 @@
-import { TEAM_MEMBERS } from "../constants/team_members";
+import { useEffect, useState } from "react";
+import { fetchMembers } from "../api";
+
+import { Member } from "../types/Members";
 
 import generateRandomString from '../util/generateRandomString'
 
-const MemberProfile: React.FC<{img: string, name: string}> = ({img, name}) => {
+const MemberProfile: React.FC<{member: Member}> = ({member}) => {
     return (
         <div className="w-1/2 p-5">
-            <img className="h-20 w-20 rounded-full object-cover object-top" src={img} alt="" />
-            <p className="mt-6 mb-2 text-xl">{name}</p>
+            <img className="h-20 w-20 rounded-full object-cover object-top" src={member.img} alt="" />
+            <p className="mt-6 mb-2 text-xl">{member.name}</p>
         </div>
     );
 }
 
 const Team: React.FC = () => {
+
+    const [ members, setMembers ] = useState<null | Member[]>(null)
+
+    useEffect(() => {
+
+        const getMembers = async () => {
+
+            const response = await fetchMembers()
+            if (!response) {
+                return
+            }
+            setMembers(response)
+        }
+
+        getMembers()
+
+    }, [])
 
     return (
         <section className="py-20" id='team'>
@@ -37,11 +57,19 @@ const Team: React.FC = () => {
 
                     <div className="flex flex-wrap">
                         {
-                            TEAM_MEMBERS.map((member) => {
+
+                            members ?
+
+                            members.map((member) => {
                                 return (
-                                    <MemberProfile key={generateRandomString(5)} img={member.img} name={member.name} />
+                                    <MemberProfile key={generateRandomString(5)} member={member} />
                                 );
                             })
+
+                            :
+
+                            <div>loading...</div>
+
                         }
                     </div>
 
