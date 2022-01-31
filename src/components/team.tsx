@@ -1,22 +1,26 @@
 import { useEffect, useState } from "react";
 import { fetchMembers } from "../api";
+import { SECTIONS } from "../constants/sections";
 
 import { Member } from "../types/Members";
 
 import generateRandomString from '../util/generateRandomString'
 
-const MemberProfile: React.FC<{member: Member}> = ({member}) => {
+const MemberProfile: React.FC<{ member: Member }> = ({ member }) => {
     return (
-        <div className="w-1/2 p-5">
-            <img className="h-20 w-20 rounded-full object-cover object-top" src={member.img} alt="" />
-            <p className="mt-6 mb-2 text-xl">{member.name}</p>
+        <div className="mb-6 w-full md:w-1/2 lg:w-1/3 px-3">
+            <div className="py-24 bg-blue-200 rounded text-center">
+                <img className="mx-auto mb-8 w-24 h-24 rounded-full object-cover" src={member.img} alt=""/>
+                    <h4 className="mb-2 text-2xl font-bold font-headig text-gray-900">{member.name}</h4>
+                    <p className="text-blue-600">CEO</p>
+            </div>
         </div>
     );
 }
 
 const Team: React.FC = () => {
 
-    const [ members, setMembers ] = useState<null | Member[]>(null)
+    const [members, setMembers] = useState<null | Member[]>(null)
 
     useEffect(() => {
 
@@ -28,51 +32,33 @@ const Team: React.FC = () => {
             }
             setMembers(response)
         }
-
         getMembers()
 
     }, [])
 
     return (
-        <section className="py-20" id='team'>
-            <div className="container px-4 mx-auto">
-                <div className="flex flex-col md:flex-row justify-around">
-
-                    <div className="max-w-md md:mr-10 mb-10 md:mb-0">
-
-                        <span className="inline-block py-1 px-3 text-xs font-semibold bg-blue-100 text-blue-600 rounded-xl">
-                            Our Team
-                        </span>
-
-                        <h2 className="text-3xl md:text-4xl mt-2 mb-4 font-bold font-heading">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                        </h2>
-
-                        <p className="text-blueGray-400 leading-loose">
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
-                            Veritatis quisquam cum aliquam rem.
-                        </p>
-
+        <section id={SECTIONS.TEAM}>
+            <div className="flex flex-center flex-col py-20 bg-gray-900 radius-for-skewed min-h-screen justify-center items-center">
+                <div className="container mx-auto px-4">
+                    <div className="max-w-xl mx-auto mb-10 text-center">
+                        <span className="text-blue-600 font-bold">Dolor sit amet consectutar</span>
+                        <h2 className="text-4xl lg:text-5xl font-bold font-heading text-blue-200">Check our awesome team members</h2>
                     </div>
-
                     <div className="flex flex-wrap">
-                        {
 
+                        {
                             members ?
 
                             members.map((member) => {
                                 return (
-                                    <MemberProfile key={generateRandomString(5)} member={member} />
-                                );
+                                    <MemberProfile member={member} key={generateRandomString(5)}/>
+                                )
                             })
-
                             :
-
-                            <div>loading...</div>
-
+                            <div/>
                         }
+                        
                     </div>
-
                 </div>
             </div>
         </section>

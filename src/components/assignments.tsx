@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { fetchAssignments } from '../api';
+import { SECTIONS } from '../constants/sections';
 import { Assignment } from '../types/Assignments';
 import generateRandomString from '../util/generateRandomString';
 
 const AssignmentElement: React.FC<{ assignment: Assignment }> = ({ assignment }) => {
     return (
-        <div className="w-full md:w-1/2 lg:w-1/3 px-3 mb-6">
-            <div className="p-8 bg-white shadow rounded">
-                <div className="flex items-center mb-4">
-                    <img className="h-16 w-16 rounded-full object-cover" src={assignment.img} alt="" />
-                    <div className="pl-4">
-                        <p className="text-xl">{assignment.title}</p>
-                        <p className='text-xs hover:underline'> <Link to={assignment.link}>Video Presentation</Link> </p>
-                    </div>
+        <div className="relative mb-4 w-full md:w-1/2 lg:w-1/3 px-4 hover:scale-105">
+            <div className="relative h-80 mb-5 mx-auto rounded-lg">
+                <img className="h-80 w-full relative rounded-lg object-cover" src={assignment.img} alt="" />
+                <div className="absolute inset-0 bg-blue-600 opacity-75 rounded-lg"></div>
+                <div className="absolute inset-0 p-6 flex flex-col items-start">
+                    <p className=" mb-1 text-2xl lg:text-2xl text-white font-bold">{assignment.title}</p>
+                    <p className="mb-auto text-sm lg:text-1xl text-white font-bold">{assignment.desc}</p>
+                    <a className="inline-block py-2 px-4 border-2 border-blue-200 hover:border-white bg-transparent text-gray-50 hover:bg-white hover:text-gray-900 transition duration-200 rounded-l-xl rounded-t-xl font-bold leading-loose" href={assignment.link} target="_blank" rel="noopener noreferrer">
+                        View Project
+                    </a>
                 </div>
-                <p className="text-blueGray-400 leading-loose">{assignment.desc}</p>
             </div>
         </div>
     );
@@ -39,37 +40,31 @@ export const Assignments = () => {
 
         getAssignments()
 
-
     }, []);
 
     return (
-        <section className="py-20 xl:bg-contain bg-top bg-no-repeat" id='projects'>
-            <div className="container px-4 mx-auto">
-                <div className="max-w-lg mx-auto mb-12 text-center">
-                    <h2 className="my-2 text-3xl md:text-4xl font-bold font-heading">Projects</h2>
-                    <p className="text-blueGray-400 leading-loose">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed luctus eget justo et iaculis.</p>
+        <section className="flex flex-col content-center relative py-20 bg-gray-900 radius-for-skewed min-h-screen" id={SECTIONS.ASSIGNMENTS}>
+            <div className="m-auto container px-4 mx-auto">
+                <div className="mb-16 flex flex-wrap justify-center md:justify-between items-center">
+                    <div className="text-center lg:text-left">
+                        {/* <span className="text-blue-600 font-bold">What have I been working on?</span> */}
+                        <h2 className="text-4xl lg:text-5xl font-bold font-heading text-white">Assignments</h2>
+                    </div>
                 </div>
-
-                <div className="flex flex-wrap -mx-3 mb-6">
+                <div className="flex flex-wrap -mx-4 mb-4">
 
                     {
+
                         assignments ?
 
-                        assignments.map((assn) => {
+                            assignments.map((assignment) => {
                                 return (
-                                    <AssignmentElement
-                                        key={generateRandomString(5)}
-                                        assignment={assn}
-                                    />
+                                    <AssignmentElement assignment={assignment} key={generateRandomString(5)}/>
                                 );
                             })
-
                             :
-
-                            <h1>loading...</h1>
-                            
+                            <div>loading...</div>
                     }
-
                 </div>
             </div>
         </section>

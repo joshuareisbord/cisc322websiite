@@ -1,21 +1,14 @@
 const Footer = () => {
     return (
 
-        <section className="py-16" id='footer'>
-            <div className="container px-4 mx-auto">
-                <div className="flex flex-col lg:flex-row items-center lg:justify-between">
-                    <p className="text-xs text-blueGray-400">© 2022. All rights reserved.</p>
-                    {/* <div className="order-first lg:order-last -mx-2 mb-4 lg:mb-0">
-                        <a className="inline-block px-2" href="#">
-                            <img src="metis-assets/icons/facebook-blue.svg" alt=""/>
-                        </a>
-                        <a className="inline-block px-2" href="#">
-                            <img src="metis-assets/icons/twitter-blue.svg" alt=""/>
-                        </a>
-                        <a className="inline-block px-2" href="#">
-                            <img src="metis-assets/icons/instagram-blue.svg" alt=""/>
-                        </a>
-                    </div> */}
+        <section className="bg-gray-900" id="footer">
+            <div className="flex flex-col items-center justify-center mx-auto px-4 h-20">
+                <div className="pt-3 pb-3">
+                    <div className="relative mx-2 flex flex-wrap lg:border-gray-800">
+                        <p className="w-full text-gray-400 text-sm text-center">
+                            © 2022. All rights reserved.
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
