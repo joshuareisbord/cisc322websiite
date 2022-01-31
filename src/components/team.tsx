@@ -12,7 +12,6 @@ const MemberProfile: React.FC<{ member: Member }> = ({ member }) => {
             <div className="py-24 bg-blue-200 rounded text-center">
                 <img className="mx-auto mb-8 w-24 h-24 rounded-full object-cover" src={member.img} alt=""/>
                     <h4 className="mb-2 text-2xl font-bold font-headig text-gray-900">{member.name}</h4>
-                    <p className="text-blue-600">CEO</p>
             </div>
         </div>
     );
@@ -41,7 +40,7 @@ const Team: React.FC = () => {
             <div className="flex flex-center flex-col py-20 bg-gray-900 radius-for-skewed min-h-screen justify-center items-center">
                 <div className="container mx-auto px-4">
                     <div className="max-w-xl mx-auto mb-10 text-center">
-                        <span className="text-blue-600 font-bold">Dolor sit amet consectutar</span>
+                        <span className="text-blue-600 font-bold">That Would be Optimal</span>
                         <h2 className="text-4xl lg:text-5xl font-bold font-heading text-blue-200">Check our awesome team members</h2>
                     </div>
                     <div className="flex flex-wrap">
