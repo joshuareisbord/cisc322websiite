@@ -3,7 +3,9 @@ export interface Assignment {
     id: number,
     title: string,
     desc: string,
-    link: string,
+    slidesLink: string,
+    reportLink: string,
+    videoLink: string,
     img: string
 }
 
@@ -32,7 +34,10 @@ export const transformAssignments = (response: any) => {
             id: assignment.id,
             title: assignment.attributes.title,
             desc: assignment.attributes.description,
-            link: assignment.attributes.link,
+            videoLink: assignment.attributes.videoLink,
+            slidesLink: assignment.attributes.slidesLink,
+            reportLink: assignment.attributes.reportLink,
+
             img: imageUrl()
         }
 

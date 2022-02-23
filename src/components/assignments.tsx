@@ -5,6 +5,18 @@ import { Assignment } from '../types/Assignments';
 import generateRandomString from '../util/generateRandomString';
 
 const AssignmentElement: React.FC<{ assignment: Assignment }> = ({ assignment }) => {
+
+
+    const [open, setOpen] = useState<boolean>(false)
+
+    const handleClose = () => {
+        setOpen(false)
+    }
+
+    const handleOpen = () => {
+        setOpen(true)
+    }
+
     return (
         <div className="relative mb-4 w-full md:w-1/2 lg:w-1/3 px-4 hover:scale-105">
             <div className="relative h-80 mb-5 mx-auto rounded-lg">
@@ -12,10 +24,38 @@ const AssignmentElement: React.FC<{ assignment: Assignment }> = ({ assignment })
                 <div className="absolute inset-0 bg-blue-600 opacity-75 rounded-lg"></div>
                 <div className="absolute inset-0 p-6 flex flex-col items-start">
                     <p className=" mb-1 text-2xl lg:text-2xl text-white font-bold">{assignment.title}</p>
-                    <p className="mb-auto text-sm lg:text-1xl text-white font-bold">{assignment.desc}</p>
-                    <a className="inline-block py-2 px-4 border-2 border-blue-200 hover:border-white bg-transparent text-gray-50 hover:bg-white hover:text-gray-900 transition duration-200 rounded-l-xl rounded-t-xl font-bold leading-loose" href={assignment.link} target="_blank" rel="noopener noreferrer">
-                        View Project
-                    </a>
+
+
+                    {
+                        !open ?
+                            <>
+                                <p className="mb-auto text-lg lg:text-1xl text-white font-bold">{assignment.desc}</p>
+                                <div className='flex flex-grow' />
+                                <a className="inline-block py-2 px-4 border-2 border-blue-200 hover:border-white bg-transparent text-gray-50 hover:bg-white hover:text-gray-900 transition duration-200 rounded-l-xl rounded-t-xl font-bold leading-loose" onClick={handleOpen}>
+                                    Links
+                                </a>
+
+                            </>
+                            :
+                            <>
+                                <div className='flex flex-row  h-full w-full justify-center content-center items-center space-x-2'>
+                                    <a className="inline-block py-2 px-4 border-2 border-blue-200 hover:border-white bg-transparent text-gray-50 hover:bg-white hover:text-gray-900 transition duration-200 rounded-l-xl rounded-t-xl font-bold leading-loose" href={assignment.videoLink} target="_blank" rel="noopener noreferrer">
+                                        Video
+                                    </a>
+                                    <a className="inline-block py-2 px-4 border-2 border-blue-200 hover:border-white bg-transparent text-gray-50 hover:bg-white hover:text-gray-900 transition duration-200 rounded-l-xl rounded-t-xl font-bold leading-loose" href={assignment.slidesLink} target="_blank" rel="noopener noreferrer">
+                                        Slides
+                                    </a>
+                                    <a className="inline-block py-2 px-4 border-2 border-blue-200 hover:border-white bg-transparent text-gray-50 hover:bg-white hover:text-gray-900 transition duration-200 rounded-l-xl rounded-t-xl font-bold leading-loose" href={assignment.reportLink} target="_blank" rel="noopener noreferrer">
+                                        Report
+                                    </a>
+                                </div>
+                                <div className='flex flex-grow' />
+                                <a className="inline-block py-2 px-4 border-2 border-blue-200 hover:border-white bg-transparent text-gray-50 hover:bg-white hover:text-gray-900 transition duration-200 rounded-l-xl rounded-t-xl font-bold leading-loose" onClick={handleClose}>
+                                    Description
+                                </a>
+                            </>
+
+                    }
                 </div>
             </div>
         </div>
@@ -59,7 +99,7 @@ export const Assignments = () => {
 
                             assignments.map((assignment) => {
                                 return (
-                                    <AssignmentElement assignment={assignment} key={generateRandomString(5)}/>
+                                    <AssignmentElement assignment={assignment} key={generateRandomString(5)} />
                                 );
                             })
                             :
